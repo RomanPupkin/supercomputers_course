@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
                 MPI_Isend(&criteria, 1, MPI_INT, j, 0, MPI_COMM_WORLD, &request);
                 if (criteria) {
                     for (int k = 0; k < dots_each_proc; k++) {
-                        xyz[3 * dots_each_proc + 3 * dots_each_proc * j + k] = -1.0 + 2.0 / comm_size 2.0 * std::rand()/RAND_MAX; // [-1.0, 1.0]
+                        xyz[3 * dots_each_proc + 3 * dots_each_proc * j + k] = -1.0 + 2.0 * std::rand()/RAND_MAX; // [-1.0, 1.0]
                         xyz[3 * dots_each_proc + 3 * dots_each_proc * j + dots_each_proc + k] = -1.0 + 2.0 * std::rand()/RAND_MAX; // [-1.0, 1.0]
                         xyz[3 * dots_each_proc + 3 * dots_each_proc * j + 2 * dots_each_proc + k] = 0.0 + 1.0 * std::rand()/RAND_MAX; // [0.0, 1.0]
                     }
