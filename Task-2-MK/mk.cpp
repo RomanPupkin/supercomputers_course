@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     double sum_part = 0; 
     double sum = 0;
     double eps = precision + 1;
-    int seed = 173;
+    int seed = 654;
     std::srand(seed);
     double true_sum = 3.14 / 6;
     double V = 2 * 2 * 1.0;
@@ -49,9 +49,10 @@ int main(int argc, char *argv[]) {
                 }
             }
         } 
+	starttime = MPI_Wtime(); 
         MPI_Scatter(xyz, 3 * block, MPI_DOUBLE, xyz_local, 3 * block, MPI_DOUBLE, 0, MPI_COMM_WORLD);
         if (rank != 0) {
-            starttime = MPI_Wtime(); 
+            //starttime = MPI_Wtime(); 
             for (int i = 0; i < block; i++) {
                 if (xyz_local[i] * xyz_local[i] + xyz_local[block + i] * xyz_local[block + i] \
                         <= xyz_local[2 * block + i] * xyz_local[2 * block + i]) {
@@ -79,7 +80,7 @@ int main(int argc, char *argv[]) {
         std::cout << "value = " << V * sum / dot_count << "\n" << 
             "eps = " << eps << "\n" << 
             "dots = " << dot_count << "\n" << 
-            "time = " << resulttime << "\n";
+            "time = " << resulttime << "\n"; 
             //"seed = " << seed << "\n";
             //"true_value = " << true_sum << "\n" <<
             //"precision from console = " << precision << "\n" <<
