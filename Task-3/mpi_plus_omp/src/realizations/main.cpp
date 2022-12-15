@@ -76,8 +76,6 @@ int main(int argc, char **argv) {
     //     }
     // }
     // }
-    // csr_matx_filling(n, m, x_min, x_max, y_min, y_max, vals);
-    // matx_filling(n, m, x_min, x_max, y_min, y_max, matx);
 
     mpi_right_filling(n, m, x_min, x_max, y_min, y_max, coords, dims_size, r_vec_rank);
     // mpi_matx_print(n/dims_size[0], m/dims_size[1], r_vec_rank, coords, dims_size);
@@ -90,16 +88,13 @@ int main(int argc, char **argv) {
     //     }
     // }
     // }
-    // right_filling(n, m, x_min, x_max, y_min, y_max, r_vec);
-    // matx_print(n*m, 1, r_vec);
     
     double error;
     error = mpi_computing(n, m, h1, h2, vals_rank, w_rank, r_vec_rank, coords, dims_size, &comm);
     double end_time = MPI_Wtime();
     double result_time, time = end_time - start_time;
     MPI_Reduce(&time, &result_time, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
-    // computing(n, m, h1, h2, vals, w, r_vec); 
-    // computing(n, m, h1, h2, matx, w, r_vec);
+
 
     // for (int j = 0; j < m / dims_size[1]; j++) {
     //     for (int i = 0; i < n / dims_size[0]; i++) {
@@ -128,17 +123,18 @@ int main(int argc, char **argv) {
         }
     }
 
-    MPI_Barrier(comm);
-    for (int j = 0; j < m / dims_size[1]; j++) {
-        for (int i = 0; i < n / dims_size[0]; i++) {
-            curr_i = coords[0] * n / dims_size[0] + i;
-            curr_j = coords[1] * m / dims_size[1] + j;
-            std::cout << x_min + h1 * curr_i << " " \
-            << y_min + h2 * curr_j << " " \
-            << w_rank[j*n/dims_size[0] + i] << " " \
-            << curr_j * n + curr_i << std::endl;
-        }
-    }
+    // MPI_Barrier(comm);
+
+    // for (int j = 0; j < m / dims_size[1]; j++) {
+    //     for (int i = 0; i < n / dims_size[0]; i++) {
+    //         curr_i = coords[0] * n / dims_size[0] + i;
+    //         curr_j = coords[1] * m / dims_size[1] + j;
+    //         std::cout << x_min + h1 * curr_i << " " \
+    //         << y_min + h2 * curr_j << " " \
+    //         << w_rank[j*n/dims_size[0] + i] << " " \
+    //         << curr_j * n + curr_i << std::endl;
+    //     }
+    // }
 
     delete[] vals_rank;
     delete[] r_vec_rank;

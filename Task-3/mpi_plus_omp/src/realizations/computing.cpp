@@ -100,7 +100,7 @@ int mpi_csr_matx_filling(int n, int m, double x_min, double x_max, double y_min,
     int curr_i, curr_j;
     int n_curr = n / dims_size[0];
     int m_curr = m / dims_size[1];
-    // #pragma omp parallel for collapse(2) num_threads(4)
+    #pragma omp parallel for collapse(2) num_threads(4)
     for (int j = 0; j < m_curr; j++) {
         for (int i = 0; i < n_curr; i++) {
             curr_i = coords[0] * n_curr + i;
@@ -221,7 +221,7 @@ int mpi_right_filling(int n, int m, double x_min, double x_max, double y_min, do
     int n_curr = n / dims_size[0];
     int m_curr = m / dims_size[1];
     double F_i_j, ksi_i_j;
-    // #pragma omp parallel for collapse(2) num_threads(4)
+    #pragma omp parallel for collapse(2) num_threads(4)
     for (int j = 0; j < m_curr; j++) {
         for (int i = 0; i < n_curr; i++) {
             curr_i = coords[0] * n_curr + i;
@@ -295,7 +295,7 @@ int mpi_csr_mat_vec_mul(int n, int m, double *vals_rank, double *w_rank,
     int curr_i, curr_j;
     int n_curr = n / dims_size[0];
     int m_curr = m / dims_size[1];
-    // #pragma omp parallel for collapse(2) num_threads(4)
+    #pragma omp parallel for collapse(2) num_threads(4)
     for (int j = 0; j < m_curr; j++) {
         for (int i = 0; i < n_curr; i++) {
             curr_i = coords[0] * n_curr + i;
